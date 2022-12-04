@@ -12,10 +12,10 @@ lint:
 	pylint --disable=R,C --ignore-patterns=test_.*?py *.py
 	
 deploy:
-	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p8v3p4h9
-	docker build -t deploy-goodreads-fastapi .
-	docker tag deploy-goodreads-fastapi:latest public.ecr.aws/p8v3p4h9/deploy-goodreads-fastapi:latest
-	docker push public.ecr.aws/p8v3p4h9/deploy-goodreads-fastapi:latest
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 258567528781.dkr.ecr.us-east-1.amazonaws.com
+	ddocker build -t fastapi-deploy .
+	docker tag fastapi-deploy:latest 258567528781.dkr.ecr.us-east-1.amazonaws.com/fastapi-deploy:latest
+	docker push 258567528781.dkr.ecr.us-east-1.amazonaws.com/fastapi-deploy:latest
 
 all:
 	make install test format lint deploy
