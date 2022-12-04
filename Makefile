@@ -12,7 +12,7 @@ lint:
 	pylint --disable=R,C --ignore-patterns=test_.*?py *.py
 	
 deploy:
-	aws ecr get-login-password --region us-east-1 | docker login --username AWS -p --password-stdin 258567528781.dkr.ecr.us-east-1.amazonaws.com
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 258567528781.dkr.ecr.us-east-1.amazonaws.com
 	ddocker build -t fastapi-deploy .
 	docker tag fastapi-deploy:latest 258567528781.dkr.ecr.us-east-1.amazonaws.com/fastapi-deploy:latest
 	docker push 258567528781.dkr.ecr.us-east-1.amazonaws.com/fastapi-deploy:latest
