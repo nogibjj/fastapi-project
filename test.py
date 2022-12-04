@@ -1,20 +1,9 @@
-from fastapi import FastAPI
 import pandas as pd
 
-# Read in the books dataset
 books = pd.read_csv("books.csv", on_bad_lines="skip", index_col="bookID")
 
-app = FastAPI()
 
-
-@app.get("/")
-async def root():
-    """Define Root Path"""
-    return {"message": "Query for Goodreads book data"}
-
-
-@app.get("/books/{book_id}")
-async def read_user(book_id: int):
+def read_book(book_id: int):
     """Get information about a specific book with the book ID"""
     if book_id not in books.index:
         return {"message": "the id you entered is not available"}
@@ -44,8 +33,23 @@ async def read_user(book_id: int):
     }
 
 
-@app.post("/lookup_by_title")
-async def lookup_by_title(title: str):
+def test_read_book():
+    """Test the read book_id function"""
+    assert set(read_book(1).keys()) == {
+        "book_id",
+        "title",
+        "authors",
+        "average rating",
+        "publisher",
+        "isbn code",
+        "language code",
+        "number of pages",
+        "number of ratings posted",
+        "number of reviews posted",
+    }
+
+
+def lookup_by_title(title: str):
     """Look up the book by title"""
     if (title != books["title"]).all():
         return {"message": "the book title you entered is not available"}
@@ -70,4 +74,20 @@ async def lookup_by_title(title: str):
         "number of pages": int(pages),
         "number of ratings posted": int(num_ratings),
         "number of reviews posted": int(num_reviews),
+    }
+
+
+def test_title_lookup():
+    """Test the read book_id function"""
+    assert set(lookup_by_title("Poor People").keys()) == {
+        "title",
+        "book_id",
+        "authors",
+        "average rating",
+        "publisher",
+        "isbn code",
+        "language code",
+        "number of pages",
+        "number of ratings posted",
+        "number of reviews posted",
     }
