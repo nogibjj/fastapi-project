@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 import pandas as pd
 
 # Read in the books dataset
@@ -71,3 +72,7 @@ async def lookup_by_title(title: str):
         "number of ratings posted": int(num_ratings),
         "number of reviews posted": int(num_reviews),
     }
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, port=8000, host="0.0.0.0")
