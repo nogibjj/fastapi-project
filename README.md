@@ -50,3 +50,11 @@ When a new version of the code is pushed to GitHub, CodeBuild triggers and sends
 ### Replication
 
 You can replicate the results and the application by cloning this GitHub repo and running ```python app.py```. 
+
+### Docker
+
+You can also run the application directly by running in your terminal
+
+```
+docker run genesisqu/goodreads_fastapi:latest
+```
